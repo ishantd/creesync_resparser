@@ -1,6 +1,9 @@
 from django.urls import include, path
-from . import views
+from resume_api import views
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-  path('welcome', views.welcome)
+  path('resume', views.ResumeParser.as_view(), name='resume')
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
