@@ -6,9 +6,15 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
+from pyresparser import ResumeParser
+from resume_api.models import *
 
 
-class ResumeParser(APIView):
+def parse_resume_full(resume):
+    path = f'/home/ishant/ishant_linux/farzi/resumeparser{resume.resume_field.url}'
+    data = ResumeParser(path).get_extracted_data()
+    return data
+class ResumeParserAPI(APIView):
     parser_class = (FileUploadParser,)
 
     @method_decorator(csrf_exempt)
@@ -18,4 +24,9 @@ class ResumeParser(APIView):
         f = request.data['file']
         if not ('.pdf' in f.name):
             raise ParseError("File format not supported")
-        return Response(status=200)
+
+        new_resume = Resume(resume_field=f)
+        new_resume.save()
+        data = parse_resume_full(new_resume)     
+        return JsonResponse(data, status=200)
+
