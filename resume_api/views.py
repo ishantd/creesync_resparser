@@ -14,6 +14,11 @@ def parse_resume_full(resume):
     path = f'/home/ishant/ishant_linux/farzi/resumeparser{resume.resume_field.url}'
     data = ResumeParser(path).get_extracted_data()
     return data
+
+def update_resume_data(data, resume):
+    
+
+    return True
 class ResumeParserAPI(APIView):
     parser_class = (FileUploadParser,)
 
@@ -27,6 +32,7 @@ class ResumeParserAPI(APIView):
 
         new_resume = Resume(resume_field=f)
         new_resume.save()
-        data = parse_resume_full(new_resume)     
+        data = parse_resume_full(new_resume)
+        update_status = update_resume_data(data, resume)
         return JsonResponse(data, status=200)
 

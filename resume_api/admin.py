@@ -3,4 +3,4 @@ from resume_api.models import *
 # Register your models here.
 
 admin.site.register(Resume)
-admin.site.register(ResumeDetail)
+# admin.site.register(RessumeDetail)

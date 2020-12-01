@@ -1,0 +1,14 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+
+
+    <form action="/api/resume" method="post" class="pt-5">
+        <h2>Resume Upload</h2>
+        <input type="file" name="upload" accept="application/pdf" />
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+
+
+{% endblock content %}
