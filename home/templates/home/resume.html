@@ -1,14 +1,14 @@
 {% extends 'home/base.html' %}
 
 {% block content %}
-
-
-
-    <form action="/api/resume" method="post" class="pt-5">
+    <form action="/resume_api" id="resume-form" method="POST" enctype="application/x-www-form-urlencoded" class="pt-5">
+        {% csrf_token %}
         <h2>Resume Upload</h2>
         <input type="file" name="upload" accept="application/pdf" />
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 
+    <div class="resume-table" id="resume-table" style="max-width: 250px;">
 
+    </div>
 {% endblock content %}

@@ -2,3 +2,5 @@ env/
 /media/
 db.sqlite3
 __pycache__
+*.zip
+jQuery-JSON-To-Table-Plugin

@@ -11,28 +11,22 @@ from resume_api.models import *
 
 
 def parse_resume_full(resume):
-    path = f'/home/ishant/ishant_linux/farzi/resumeparser{resume.resume_field.url}'
+    path = f'/home/ishant/ishant_linux/farzi/resumeparser/media/{resume.resume_field.name}'
+    print(path)
     data = ResumeParser(path).get_extracted_data()
     return data
 
-def update_resume_data(data, resume):
-    
-
-    return True
 class ResumeParserAPI(APIView):
     parser_class = (FileUploadParser,)
 
-    @method_decorator(csrf_exempt)
     def post(self, request, format=None):
-        if 'file' not in request.data:
+        print(request.data)
+        if 'upload' not in request.data:
             raise ParseError("Empty content")
-        f = request.data['file']
-        if not ('.pdf' in f.name):
-            raise ParseError("File format not supported")
-
+        f = request.data['upload']
         new_resume = Resume(resume_field=f)
         new_resume.save()
         data = parse_resume_full(new_resume)
-        update_status = update_resume_data(data, resume)
+        # update_status = update_resume_data(data, resume)
         return JsonResponse(data, status=200)
 
